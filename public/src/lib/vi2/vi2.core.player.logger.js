@@ -89,8 +89,8 @@ define(function () {
             var log_interval = Vi2.logi;//Observer.widget_list['player-logger'].log_interval;
             var curr = vi2.observer.player.currentTime();
             var currentinterval = curr > 0 ? Math.round( curr / log_interval ) : 0;
-            //console.log(currentinterval + '----' + curr + ' ...........' + (curr / log_interval) + '++++' + this.log_interval)
-            if (currentinterval != this.lastposition) {
+            console.log(currentinterval + '----' + curr + ' ...........' + this.lastposition + '++++' + this.log_interval)
+            if (currentinterval !== this.lastposition) {
                 vi2.observer.log({ context: 'player', action: 'playback', values: [currentinterval] });
                 this.lastposition = currentinterval;
             }
@@ -100,8 +100,9 @@ define(function () {
             if (this.timer) {
                 this.timer = clearInterval(this.timer);
             }
+            this.lastposition = -1;
             this.timer = setInterval(this.loop, this.log_interval * 1000);
-            setTimeout(this.loop, 100);
+            //setTimeout(this.loop, 100);
         },
 
         restart: function () {
@@ -110,7 +111,7 @@ define(function () {
             }
             this.lastposition = -1;
             this.timer = setInterval(this.loop, this.log_interval * 1000);
-            setTimeout(this.loop, 100);
+            //setTimeout(this.loop, 100);
         },
 
         stop: function () {
