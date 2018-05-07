@@ -46,7 +46,7 @@ define(['jquery'], function ($) {
             }
 
             var template = [
-                '<div class="vi2-skipback-controls vi2-btn" title="' + this.options.step + 's zurückspringen">',
+                '<div class="vi2-skipback-controls vi2-btn" title="jump ' + this.options.step + ' sec back">',
                 '<div class="vi2-skipback-label fa fa-step-backward">',
                 this.options.label,
                 '</div>',
