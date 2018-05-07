@@ -1,0 +1,34 @@
+#videowrapper { 
+    padding:0 !important; 
+}
+
+#logsettings ul{
+    padding:0;
+    margin:0;
+}
+#logsettings ul li{
+    list-style: none;
+}
+#logsettings ul li span{
+    display: inline;
+    font-size:14px;
+}
+
+#logsettings input[type=number]{
+    width: 80px;
+    display: inline;
+    padding:1px;
+}
+
+.logoutput-container{
+    padding:0 !important;
+    height: 100%;
+}
+#logoutput{
+    width:100%;
+    height: 100px;
+    overflow: auto;
+    margin:0;
+    padding:2px;
+    font-size:10px;
+}

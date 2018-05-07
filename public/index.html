@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vi-Logger</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/vi-two.css" />
+    <link rel="stylesheet" type="text/css" href="css/vi-logger.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <script src="src/lib/require.js"></script>
+    <script>
+        requirejs.config({ baseUrl: 'src/' });
+        requirejs(['vi-logger']);
+    </script>
+</head>
+
+<body>
+    <div style="display:none; visibility:hidden;" id="vi2"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                <div id="videowrapper">
+                    <div id="seq"></div>
+                    <div id="overlay"></div>
+                   <!-- <div id="split" class="col-md-9"></div>
+                    <div id="screen" class="col-md-9"></div>-->
+                </div>
+                <div id="video-controls" class="video-controls">
+                    <div class="timelines">
+                        <!--<div class="vi2-timeline-top"></div>-->
+                        <div class="vi2-timeline-main vi2-btn"></div>
+                        <!--<div class="vi2-timeline-bottom"></div>-->
+                        <div class="vi2-video-progress vi2-btn"></div>
+                    </div>
+                    <div class="control-bar">
+                        <div class="vi2-video-play-pause vi2-btn" title="Play/Pause">
+                            <span class="fa fa-play"></span>
+                            <span class="fa fa-pause"></span>
+                        </div>
+                        <div class="vi2-volume-controls right"></div>
+                        <div class="vi2-video-timer right"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="logsettings" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h5>Capture settings</h5>
+                <ul>
+                    <li><span>
+                        <input id="logsegments" type="checkbox" autocomplete="off" /> Segment of length
+                        <input id="logseglength" type="number" value="5" /> seconds</span>
+                    </li>
+                    <li><span>
+                        <input id="logheartbeat" type="checkbox" autocomplete="off" /> Heartbeat, every
+                        <input id="logheartlength" type="number" value="30" /> seconds.</span>
+                    </li>
+                    <li>
+                        <span><input id="logclickstream" type="checkbox" autocomplete="off" /> Clickstream with a tolerance of 
+                        <input id="clickstreamtolerance" type="number" value="1000" /> ms.</span>
+                    </li>
+                </ul>
+                <br>
+                <h5>Compute watch time</h5>
+                <button id="print" class="btn btn-primary">compute</button>
+                <ul>
+                    <li>By watched segments: <span id="resultsegment">0</span> seconds.</li>
+                    <li>By heartbeat: <span id="resultheartbeat">0</span> seconds.</li>
+                    <li>By clickstream: <span id="resultclickstream">0</span> seconds.</li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="logoutput-container col-12">
+            <textarea id="logoutput" autocomplete="off"></textarea>
+        </div>
+    </div>
+</body>
+
+</html>
