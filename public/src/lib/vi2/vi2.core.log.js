@@ -139,7 +139,6 @@ define(['jquery'], function ($) {
                         || (document.getElementById('logheartbeat').checked && logEntry.action === 'heartbeat') 
                         || (document.getElementById('logclickstream').checked && logEntry.context === 'player' && logEntry.action !== 'playback') 
                     ) {
-                        console.log(logEntry)
                         output.value += logEntry.utc + ',' + logEntry.action + ',' + (logEntry.action === 'playback' ? logEntry.value[0] : logEntry.playback_time) + '\n';
                     }
                         

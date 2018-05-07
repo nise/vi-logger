@@ -9,11 +9,6 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     video_data.video = 'http://download.media.tagesschau.de/video/2017/0605/TV-20170605-0145-1001.websm.h264.mp4';//'/videos/' + video_data.filename.replace('.mp4', '.webm');
     Vi2.start(video_data, 1);
 
-    var eee = function () {
-        console.log(window.vi2.observer.getWidget('player-playback-logger').interval());
-    }
-    setTimeout(eee, 4000);
-
     var
         print = document.getElementById('print'),
         out = document.getElementById('logoutput'),
@@ -118,7 +113,6 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
                     timeDistance = entry.utc - tmp.utc,
                     playbackDistance = (entry.time - tmp.time) * 1000
                     ;
-                console.log(timeDistance + ' ' + playbackDistance)
                 if (playbackDistance > 0) {
                     //if (timeDistance - playbackDistance <= e) {
                         c += playbackDistance
@@ -152,6 +146,4 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
             document.getElementById('resultclickstream').innerHTML = (c/1000).toFixed(1);
         }
     }
-
-
 });

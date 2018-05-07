@@ -56,7 +56,7 @@ define(function () {
                 //_this.start();
             //});
 
-            this.video.addEventListener('ended', function (e) { console.log('ended')
+            this.video.addEventListener('ended', function (e) { 
                 _this.stop();
             }, false);
 
@@ -80,7 +80,6 @@ define(function () {
                 Vi2.logi = i;
                 this.stop();
                 this.restart();
-                console.log('incre')
             }else {
                 return this.log_interval;
             }
