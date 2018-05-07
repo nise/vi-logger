@@ -89,7 +89,7 @@ define(function () {
             var log_interval = Vi2.logi;//Observer.widget_list['player-logger'].log_interval;
             var curr = vi2.observer.player.currentTime();
             var currentinterval = curr > 0 ? Math.round( curr / log_interval ) : 0;
-            console.log(currentinterval + '----' + curr + ' ...........' + this.lastposition + '++++' + this.log_interval)
+            //console.log(currentinterval + '----' + curr + ' ...........' + this.lastposition + '++++' + this.log_interval)
             if (currentinterval !== this.lastposition) {
                 vi2.observer.log({ context: 'player', action: 'playback', values: [currentinterval] });
                 this.lastposition = currentinterval;
