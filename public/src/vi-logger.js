@@ -39,7 +39,6 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     });
 
     check_heartbeat.addEventListener('change', function () {
-
         if (this.checked) {
             heart_interval = setInterval(writeHeartbeat, heartbeat * 1000);
         } else {
@@ -49,6 +48,8 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
 
     check_heartbeat_length.addEventListener('change', function () {
         heartbeat = this.value;
+        heart_interval = clearInterval(heart_interval);
+        heart_interval = setInterval(writeHeartbeat, heartbeat * 1000);
     });
 
     function writeHeartbeat() {
