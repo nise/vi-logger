@@ -137,9 +137,11 @@ define(['jquery'], function ($) {
                     if (
                         (document.getElementById('logsegments').checked && logEntry.action === 'playback' && logEntry.context === 'player') 
                         || (document.getElementById('logheartbeat').checked && logEntry.action === 'heartbeat') 
+                        || (document.getElementById('timeupdatelog').checked && logEntry.action === 'timeupdate') 
                         || (document.getElementById('logclickstream').checked && logEntry.context === 'player' && logEntry.action !== 'playback') 
                     ) {
-                        output.value += logEntry.utc + ',' + logEntry.action + ',' + (logEntry.action === 'playback' ? logEntry.value[0] : logEntry.playback_time) + '\n';
+                        var speed = vi2.observer.player.video.playbackRate;
+                        output.value += logEntry.utc + ',' + logEntry.action + ',' + (logEntry.action === 'playback' ? logEntry.value[0] : logEntry.playback_time.toFixed(2) ) + ','+ speed +'\n';
                     }
                         
                 }

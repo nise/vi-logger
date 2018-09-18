@@ -6,12 +6,14 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     video_data.metadata[0].title = 'Test';
     video_data.metadata[0].abstract = 'bla';
     //video_data.metadata[0].thumbnail = "still-" + video_data.filename.replace('.mp4', '_comp.jpg');
-    video_data.video = 'http://download.media.tagesschau.de/video/2017/0605/TV-20170605-0145-1001.websm.h264.mp4';//'/videos/' + video_data.filename.replace('.mp4', '.webm');
+    //video_data.video = 'http://download.media.tagesschau.de/video/2017/0605/TV-20170605-0145-1001.websm.h264.mp4';
+    video_data.video = 'http://localhost/videos/VIDEO03_1_Biathlon2_Biathlon_Instruktion.mp4';
     Vi2.start(video_data, 1);
 
     var
         print = document.getElementById('print'),
         out = document.getElementById('logoutput'),
+        timeupdate_check = document.getElementById('timeupdatelog'),
         check_segments = document.getElementById('logsegments'),
         check_segments_length = document.getElementById('logseglength'),
         check_heartbeat = document.getElementById('logheartbeat'),
@@ -22,9 +24,30 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         heart_interval = -1
         ;
 
-    print.addEventListener('click', function () {
+    /*print.addEventListener('click', function () {
         computeWatchTime();
-    })
+    });*/
+
+    out.addEventListener('change', function(){
+        
+        //computeWatchTime();
+    });
+
+    timeupdate_check.addEventListener('change', function () {
+        if (this.checked) {
+            Vi2.Observer.player.video.addEventListener('timeupdate', writeTimeupdate, false);
+        } else {
+            Vi2.Observer.player.video.removeEventListener('timeupdate', writeTimeupdate, false);
+        }
+    });
+
+    function writeTimeupdate() {
+        Vi2.Observer.log({
+            context: 'player',
+            action: 'timeupdate',
+            values: [Number(Vi2.Observer.player.currentTime().toFixed(1))]
+        });
+    }
 
     check_segments.addEventListener('change', function () {
         if (this.checked) {
@@ -75,6 +98,25 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     //  this.scrollTop = this.scrollHeight;
     //})
 
+    // leave tab
+    var interval_id;
+    $(window).focus(function () {
+        console.log('focus returned to window')
+        //if (!interval_id)
+            //interval_id = setInterval(hard_work, 1000);
+    });
+
+    $(window).blur(function () {
+        console.log('blur..leaves the window')
+        //clearInterval(interval_id);
+        interval_id = 0;
+    });
+
+    
+
+    /**
+     * Compute watching time using different measurements.
+     */
     function computeWatchTime() {
         var
             log = out.value.split(/\r?\n/),
@@ -83,7 +125,7 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         
         for (var i = 0, len = log.length; i < len; i++) {
             var entry = log[i].split(',');
-            if (entry[1] === 'playback' || entry[1] === 'heartbeat') {
+            if (entry[1] === 'playback' || entry[1] === 'heartbeat' || entry[1] === 'timeupdate') {
                 res[entry[1]] = res[entry[1]] || [];
                 if (entry[2] !== undefined)
                     res[entry[1]].push({ utc: entry[0], event: entry[1], time: entry[2] });
@@ -94,6 +136,17 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
             }
         }
 
+        // by timeupdate
+        if (res['timeupdate'] !== undefined) {
+            var
+                tut = 0
+                ;
+            for (var i = 1, len = res['timeupdate'].length; i < len; i++) {
+                // xxx
+            }
+        }
+
+        
         // by segments
         if (res['playback'] !== undefined) {
             document.getElementById('resultsegment').innerHTML = res['playback'].length * check_segments_length.value;
@@ -106,7 +159,6 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
             var
                 c = 0,
                 tmp = res['heartbeat'][0]
-                //e = clickstream_tolerance.value
                 ;
             for (var i = 1, len = res['heartbeat'].length; i < len; i++) {
                 var
@@ -115,9 +167,7 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
                     playbackDistance = (entry.time - tmp.time) * 1000
                     ;
                 if (playbackDistance > 0) {
-                    //if (timeDistance - playbackDistance <= e) {
-                        c += playbackDistance
-                    //}
+                    c += playbackDistance
                 }
                 tmp = entry;
             }

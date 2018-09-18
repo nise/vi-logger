@@ -12,8 +12,8 @@
 
 define(['jquery'], function ($) {
 	/** 
-	*	@constructs 
-	*	@param options {object}
+	* @constructs 
+	* @param options {object}
 	* @param options.selector {String} 
 	* @param options.videoSelector {String} 	
 	* @param options.speed_steps {Array} Float array with the available steps to increase or decrease the playback speed 

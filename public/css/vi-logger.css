@@ -1,41 +1,74 @@
+
+body{
+    font-size:1.2em;
+}
+
+h4{
+    margin-top:0;
+}
+
+input[type="checkbox"]{
+    margin:0 !important;
+    display: inline-block;
+     margin-right: -20px;
+    margin-left: 0;
+}
+
+.form-check-input {
+    margin-left:20px;
+}
+
 #videowrapper { 
     padding:0 !important; 
 }
 
-#logsettings ul{
-    padding:0;
-    margin:0;
+#logresult ul{
+    padding:0 15px;
+    margin:0 0 20px 0;
 }
-#logsettings ul li{
-    list-style: none;
+
+label{
+    font-weight:normal;
 }
-#logsettings ul li span{
-    display: inline;
-    font-size:14px;
-}
+
 
 #logsettings input[type=number]{
     width: 80px;
-    display: inline;
-    padding:1px;
+    padding:0px;
 }
 
-.logoutput-container{
-    padding:0 !important;
-    height: 100%;
-}
 #logoutput{
-    width:100%;
-    height: 100px;
+    width:95%;
+    height: 150px;
     overflow: auto;
-    margin:0;
+    margin: auto 4px;
     padding:2px;
-    font-size:10px;
+    font-size:1em;
 }
 
 .vi2-video-timer{
     font-size:10px;
-    width:50px !important;
+    width:100% !important;
+}
+
+.timelines{
+    height:15px;
+}
+.video-controls{
+    height:70px;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   margin-top:20px;
+}
+
+h4{
+    font-weight:bold;
 }
 
 @media (max-width: 1200px) { 
@@ -47,7 +80,6 @@
 
  @media (max-width: 1000px) { 
      body, #logsettings ul li span{
-         font-size:.9em;
      }
     #video-controls{
         height:100px;
