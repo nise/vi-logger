@@ -16,8 +16,6 @@ See the demo (https://nise.github.io/vi-logger/public/)[https://nise.github.io/v
 **Roadmap**
 * register if tab is active
 * register if tab gets closed
-* time update computation
-* redesign of UI
 * Compute combinations of the logging appraoches.
 * Define automated playback paths (e.g. "go to 1:22 play 10 sec, go to 1:50 play 20 min")
 * Consider browser load and memory usage.

@@ -6,8 +6,8 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     video_data.metadata[0].title = 'Test';
     video_data.metadata[0].abstract = 'bla';
     //video_data.metadata[0].thumbnail = "still-" + video_data.filename.replace('.mp4', '_comp.jpg');
-    //video_data.video = 'http://download.media.tagesschau.de/video/2017/0605/TV-20170605-0145-1001.websm.h264.mp4';
-    video_data.video = 'http://localhost/videos/VIDEO03_1_Biathlon2_Biathlon_Instruktion.mp4';
+    video_data.video = 'http://download.media.tagesschau.de/video/2017/0605/TV-20170605-0145-1001.websm.h264.mp4';
+    //video_data.video = 'http://localhost/videos/VIDEO03_1_Biathlon2_Biathlon_Instruktion.mp4';
     Vi2.start(video_data, 1);
 
     var
