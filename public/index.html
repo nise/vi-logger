@@ -4,14 +4,14 @@
 <head>
     <title>Vi-Logger</title>
     <meta charset="utf-8" />
-    <!---->
+    <!--
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/all.css" crossorigin="anonymous">
+-->
+    <link href="css/all.css" rel="stylesheet" crossorigin="anonymous">
     <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="scrc/lib/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="src/lib/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="css/vi-two.css" />
     <link rel="stylesheet" type="text/css" href="css/vi-logger.css" />
@@ -81,16 +81,16 @@
             </div>
         </div>
         <div id="logresult" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <h4>Compute watch time</h4>
+            <h4>Compute watching time</h4>
             <ul>
-                <li>By timeupdate events: <span id="timeupdateresults">0</span> seconds.</li>
+                <li>By timeupdate events: <span id="resulttimeupdate">0</span> seconds.</li>
                 <li>By watched segments: <span id="resultsegment">0</span> seconds.</li>
                 <li>By heartbeat: <span id="resultheartbeat">0</span> seconds.</li>
                 <li>By clickstream: <span id="resultclickstream">0</span> seconds.</li>
             </ul>
         </div>
         <div class="logoutput-container col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <h4>Log data output</h4>
+            <h4>Log-data output</h4>
             <textarea id="logoutput" autocomplete="off"></textarea>
         </div>
     </div>

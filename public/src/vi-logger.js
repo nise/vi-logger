@@ -20,16 +20,19 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         check_heartbeat_length = document.getElementById('logheartlength'),
         check_clickstream = document.getElementById('logclick'),
         clickstream_tolerance = document.getElementById('clickstreamtolerance')
-        heartbeat = check_heartbeat_length.value,
+    heartbeat = check_heartbeat_length.value,
         heart_interval = -1
         ;
 
     /*print.addEventListener('click', function () {
         computeWatchTime();
     });*/
+    var compute_interval = 0;
+    compute_interval = clearInterval(compute_interval);
+    compute_interval = setInterval(computeWatchTime, 1000);
 
-    out.addEventListener('change', function(){
-        
+    out.addEventListener('change', function () {
+
         //computeWatchTime();
     });
 
@@ -103,7 +106,7 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     $(window).focus(function () {
         console.log('focus returned to window')
         //if (!interval_id)
-            //interval_id = setInterval(hard_work, 1000);
+        //interval_id = setInterval(hard_work, 1000);
     });
 
     $(window).blur(function () {
@@ -112,7 +115,7 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         interval_id = 0;
     });
 
-    
+
 
     /**
      * Compute watching time using different measurements.
@@ -122,7 +125,7 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
             log = out.value.split(/\r?\n/),
             res = {}
             ;
-        
+        // distinguish log entries by their capturing method
         for (var i = 0, len = log.length; i < len; i++) {
             var entry = log[i].split(',');
             if (entry[1] === 'playback' || entry[1] === 'heartbeat' || entry[1] === 'timeupdate') {
@@ -136,28 +139,41 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
             }
         }
 
-        // by timeupdate
+        // compute watching time using timeupdate data
         if (res['timeupdate'] !== undefined) {
             var
-                tut = 0
+                epsilon2 = clickstream_tolerance.value,
+                timeupdate_watching_time = 0,
+                tmp = res['timeupdate'][0]
                 ;
             for (var i = 1, len = res['timeupdate'].length; i < len; i++) {
-                // xxx
+                var
+                    entry = res['timeupdate'][i],
+                    timeDistance = entry.utc - tmp.utc,
+                    playbackDistance = (entry.time - tmp.time) * 1000
+                    ;
+                if (playbackDistance > 0) {
+                    if (playbackDistance - timeDistance <= epsilon2) {
+                        timeupdate_watching_time += playbackDistance
+                    }
+                }
+                tmp = entry;
             }
+            document.getElementById('resulttimeupdate').innerHTML = (timeupdate_watching_time / 1000).toFixed(1);
         }
 
-        
-        // by segments
+
+        // compute watching time using segments
         if (res['playback'] !== undefined) {
             document.getElementById('resultsegment').innerHTML = res['playback'].length * check_segments_length.value;
-        }else{
+        } else {
             document.getElementById('resultsegment').innerHTML = 0;
         }
 
         // by heartbeats
         if (res['heartbeat'] !== undefined) {
             var
-                c = 0,
+                heartbeat_watching_time = 0,
                 tmp = res['heartbeat'][0]
                 ;
             for (var i = 1, len = res['heartbeat'].length; i < len; i++) {
@@ -167,19 +183,19 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
                     playbackDistance = (entry.time - tmp.time) * 1000
                     ;
                 if (playbackDistance > 0) {
-                    c += playbackDistance
+                    heartbeat_watching_time += playbackDistance
                 }
                 tmp = entry;
             }
-            document.getElementById('resultheartbeat').innerHTML = (c / 1000).toFixed(1);
+            document.getElementById('resultheartbeat').innerHTML = (heartbeat_watching_time / 1000).toFixed(1);
         }
 
-        // by clickstream
+        // compute watching time using clickstreams
         if (res['clickstream'] !== undefined) {
             var
-                c = 0,
+                clickstream_watching_time = 0,
                 tmp = res['clickstream'][0],
-                e = clickstream_tolerance.value
+                epsilon = clickstream_tolerance.value
                 ;
             for (var i = 1, len = res['clickstream'].length; i < len; i++) {
                 var
@@ -188,13 +204,13 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
                     playbackDistance = (entry.time - tmp.time) * 1000
                     ;
                 if (playbackDistance > 0) {
-                    if (timeDistance - playbackDistance <= e) {
-                        c += playbackDistance
+                    if (playbackDistance - timeDistance <= epsilon) {
+                        clickstream_watching_time += playbackDistance
                     }
                 }
                 tmp = entry;
             }
-            document.getElementById('resultclickstream').innerHTML = (c/1000).toFixed(1);
+            document.getElementById('resultclickstream').innerHTML = (clickstream_watching_time / 1000).toFixed(1);
         }
     }
 });
