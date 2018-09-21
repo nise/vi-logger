@@ -14,6 +14,8 @@ See the demo (https://nise.github.io/vi-logger/public/)[https://nise.github.io/v
 
 
 **Roadmap**
+* bug at clickstream computation
+* detect local or remote execution for loading the video
 * register if tab is active
 * register if tab gets closed
 * Compute combinations of the logging appraoches.

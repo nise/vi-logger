@@ -19,23 +19,19 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         check_heartbeat = document.getElementById('logheartbeat'),
         check_heartbeat_length = document.getElementById('logheartlength'),
         check_clickstream = document.getElementById('logclick'),
-        clickstream_tolerance = document.getElementById('clickstreamtolerance')
-    heartbeat = check_heartbeat_length.value,
+        clickstream_tolerance = document.getElementById('clickstreamtolerance'),
+        heartbeat = check_heartbeat_length.value,
         heart_interval = -1
         ;
 
-    /*print.addEventListener('click', function () {
-        computeWatchTime();
-    });*/
+    
     var compute_interval = 0;
     compute_interval = clearInterval(compute_interval);
     compute_interval = setInterval(computeWatchTime, 1000);
 
-    out.addEventListener('change', function () {
-
-        //computeWatchTime();
-    });
-
+    /**
+     * Capture timeupdate events
+     */
     timeupdate_check.addEventListener('change', function () {
         if (this.checked) {
             Vi2.Observer.player.video.addEventListener('timeupdate', writeTimeupdate, false);
@@ -52,6 +48,9 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         });
     }
 
+    /**
+     * Capture segments
+     */
     check_segments.addEventListener('change', function () {
         if (this.checked) {
             // Checkbox is checked..
@@ -64,6 +63,9 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
         window.vi2.observer.getWidget('player-playback-logger').interval(Number(this.value));
     });
 
+    /**
+     * Capture heartbeats
+     */
     check_heartbeat.addEventListener('change', function () {
         if (this.checked) {
             heart_interval = setInterval(writeHeartbeat, heartbeat * 1000);
