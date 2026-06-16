@@ -96,13 +96,21 @@ define(["jquery", "lib/vi2/vi2.main"], function ($, Vi2) {
     });
   }
 
-  /*check_clickstream.addEventListener('change', function () {
-        if (this.checked) {
-            // Checkbox is checked..
-        } else {
-            // Checkbox is not checked..
-        }
-    });*/
+  check_clickstream.addEventListener("change", function () {
+    if (this.checked) {
+      document.addEventListener("click", writeClickstream);
+    } else {
+      document.removeEventListener("click", writeClickstream);
+    }
+  });
+
+  function writeClickstream() {
+    Vi2.Observer.log({
+      context: "player",
+      action: "clickstream",
+      values: [Number(Vi2.Observer.player.currentTime().toFixed(2))],
+    });
+  }
 
   /**
    * Automotatic scrol down after adding a new entry to the texarea
@@ -146,13 +154,13 @@ define(["jquery", "lib/vi2/vi2.main"], function ($, Vi2) {
             event: entry[1],
             time: entry[2],
           });
-      } else {
+      } else if (entry[1] === "clickstream") {
         res["clickstream"] = res["clickstream"] || [];
         if (entry[2] !== undefined)
           res["clickstream"].push({
             utc: parseInt(entry[0]),
             event: "clickstream",
-            time: parseInt(entry[2]),
+            time: parseFloat(entry[2]),
           });
       }
     }
