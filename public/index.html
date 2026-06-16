@@ -7,13 +7,14 @@
     <!---->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="src/lib/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="css/vi-two.css" />
     <link rel="stylesheet" type="text/css" href="css/vi-logger.css" />
+    <script src="src/lib/jquery.js"></script>
+    <script src="src/lib/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="src/lib/require.js"></script>
     <script>
-        requirejs.config({ baseUrl: 'src/' });
+        requirejs.config({ baseUrl: 'src/', paths: { jquery: 'lib/jquery' } });
         requirejs(['vi-logger']);
     </script>
 </head>
