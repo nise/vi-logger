@@ -6,19 +6,18 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     video_data.metadata[0].title = 'Test';
     video_data.metadata[0].abstract = 'bla';
     //video_data.metadata[0].thumbnail = "still-" + video_data.filename.replace('.mp4', '_comp.jpg');
-    video_data.video = 'http://download.media.tagesschau.de/video/2017/0605/TV-20170605-0145-1001.websm.h264.mp4';
+    video_data.video = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
     //video_data.video = 'http://localhost/videos/VIDEO03_1_Biathlon2_Biathlon_Instruktion.mp4';
     Vi2.start(video_data, 1);
 
     var
-        print = document.getElementById('print'),
         out = document.getElementById('logoutput'),
         timeupdate_check = document.getElementById('timeupdatelog'),
         check_segments = document.getElementById('logsegments'),
         check_segments_length = document.getElementById('logseglength'),
         check_heartbeat = document.getElementById('logheartbeat'),
         check_heartbeat_length = document.getElementById('logheartlength'),
-        check_clickstream = document.getElementById('logclick'),
+        check_clickstream = document.getElementById('logclickstream'),
         clickstream_tolerance = document.getElementById('clickstreamtolerance'),
         heartbeat = check_heartbeat_length.value,
         heart_interval = -1
@@ -77,7 +76,9 @@ define(['jquery', 'lib/vi2/vi2.main'], function ($, Vi2) {
     check_heartbeat_length.addEventListener('change', function () {
         heartbeat = this.value;
         heart_interval = clearInterval(heart_interval);
-        heart_interval = setInterval(writeHeartbeat, heartbeat * 1000);
+        if (check_heartbeat.checked) {
+            heart_interval = setInterval(writeHeartbeat, heartbeat * 1000);
+        }
     });
 
     function writeHeartbeat() {

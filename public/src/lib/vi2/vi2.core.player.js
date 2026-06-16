@@ -440,7 +440,7 @@ define([
                     mouseTimer = window.setTimeout(disappearCursor, 1000);
                 };
 
-                $('body').unbind('keydown').bind('keydown', function (e) {
+                $('body').off('keydown').on('keydown', function (e) {
                     //_this.keyboardCommandHandler(e); 
                 });
 

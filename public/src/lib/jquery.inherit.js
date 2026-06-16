@@ -16,8 +16,8 @@
 
     inherit = function () {
 
-        var withMixins = $.isArray(arguments[0]),
-            hasBase = $.isFunction(arguments[0]) || withMixins,
+        var withMixins = Array.isArray(arguments[0]),
+            hasBase = typeof arguments[0] === 'function' || withMixins,
             base = hasBase ? withMixins ? arguments[0][0] : arguments[0] : emptyBase,
             props = arguments[hasBase ? 1 : 0] || {},
             staticProps = arguments[hasBase ? 2 : 1],
@@ -53,7 +53,7 @@
         var basePtp = base.prototype;
         $.each(propList, function () {
             if (hasBase
-                && $.isFunction(basePtp[this]) && $.isFunction(props[this])
+                && typeof basePtp[this] === 'function' && typeof props[this] === 'function'
                 && (!hasIntrospection || props[this].toString().indexOf('.__base') > -1)) {
 
                 (function (methodName) {
