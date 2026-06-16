@@ -386,7 +386,7 @@ define([
                 }
 
                 // extract file type out of mime type
-                source.src = src.replace('.mp4', ext) + "?foo=" + (new Date().getTime());//
+                source.src = src.replace('.mp4', ext);
                 // set mime type
                 source.type = mime_type;
                 return source;
