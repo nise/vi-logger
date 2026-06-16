@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/vi-logger.css" />
     <script src="src/lib/jquery.js"></script>
     <script src="src/lib/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="src/lib/require.js"></script>
     <script>
         requirejs.config({ baseUrl: 'src/', paths: { jquery: 'lib/jquery' } });
@@ -91,6 +92,11 @@
         <div class="logoutput-container col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <h4>Log-data output</h4>
             <textarea id="logoutput" autocomplete="off"></textarea>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:1.5rem;">
+            <h4>Watching time by playback position</h4>
+            <canvas id="watchingTimeChart" style="max-height:320px;"></canvas>
+            <button id="resetLog" class="btn btn-sm btn-outline-secondary" style="margin-top:0.5rem;">Reset log &amp; chart</button>
         </div>
     </div>
     <footer class="container-fluid footer">
